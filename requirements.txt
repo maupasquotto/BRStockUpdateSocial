@@ -1,4 +1,4 @@
-instagrapi
+instagrapi==1.9.12
 holidays
 Pillow
 beautifulsoup4

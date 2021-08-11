@@ -13,4 +13,5 @@ This is a simple scrip to post stock update in any instagram account. It checkes
 - Run it `docker run -it --rm stockupdate`
 
 ## In the wild
-[Instagram](https://www.instagram.com/brstockupdate/)
+- [Instagram](https://www.instagram.com/brstockupdate/)
+- Intagram blocks accounts with too many requests. Be careful
