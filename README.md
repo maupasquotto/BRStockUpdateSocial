@@ -11,3 +11,6 @@ This is a simple scrip to post stock update in any instagram account. It checkes
 ## Docker
 - Build the image `docker build -t stockupdate .`
 - Run it `docker run -it --rm stockupdate`
+
+## In the wild
+[Instagram](https://www.instagram.com/brstockupdate/)
