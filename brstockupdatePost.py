@@ -1,11 +1,4 @@
 #!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
-# In[ ]:
-
 
 from instagrapi import Client
 from bs4 import BeautifulSoup
@@ -16,20 +9,11 @@ import json
 import holidays
 
 
-# In[ ]:
-
-
 # is it holiday
 br_holidays = holidays.BR()
 today = date.today()
-
 if today.weekday() > 5 or today.strftime("%Y-%m-%d") in br_holidays:
-    #quit()
-    pass
-
-
-# In[ ]:
-
+    quit()
 
 # Load config
 with open('.env') as env:
@@ -42,29 +26,20 @@ html = page.read().decode("utf-8" )
 soup = BeautifulSoup(html, "html.parser")
 
 
-# In[ ]:
-
-
+# Getting stock data from website
 stockData = []
-
 for trSections in soup.find("section", class_="stock-rankings").div.find_all("tr")[:10]:
     stockData.append(trSections.get_text("|", strip=True).split("|"))
 
 
-# In[ ]:
-
-
-#stockData.insert(0, ['= ' + today.strftime("%d/%m/%Y") + ' ='])
-
+# Set up image
 img = Image.new('RGB', (1000, 1000), color = (73, 109, 137))
-fnt = ImageFont.truetype('env/arialBold.ttf', 70)
+fnt = ImageFont.truetype('arialBold.ttf', 70)
 d = ImageDraw.Draw(img)
 d.text((200, 0), '= ' + today.strftime("%d/%m/%Y") + ' =', font=fnt, fill=(255, 255, 0))
 
 
-# In[ ]:
-
-
+# Insert stock image
 for stockIndex in range(len(stockData)):
     stockData[stockIndex][0] = stockData[stockIndex][0].replace('.SA', '')
     d = ImageDraw.Draw(img)
@@ -76,18 +51,10 @@ for stockIndex in range(len(stockData)):
     d.text((0,(stockIndex+1.5) *80), ' '+" ".join(stockData[stockIndex]), font=fnt, fill=color)
 
 img.save(fileName,quality="maximum")
-#display(img)
 
 
-# In[ ]:
-
-
+# Send to insta
 cl = Client()
 cl.login(config['INSTA_USERNAME'], config['INSTA_PASSWORD'])
-
-
-# In[ ]:
-
-
-cl.photo_upload(fileName, 'this is a test')
+cl.photo_upload(fileName, 'Stocks ' + today.strftime("%d/%m/%Y"))
 
